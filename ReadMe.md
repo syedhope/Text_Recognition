@@ -18,6 +18,13 @@ Installation
 Code Usage
 ----------
 python buss_text.py *path_to_test_image* *path_to_output*
+<<<<<<< HEAD
+=======
+
+example: 
+
+python buss_text.py D:\Project\001.jpg D:\Project\result_001.jpg
+>>>>>>> origin/master
 
 example: 
 
