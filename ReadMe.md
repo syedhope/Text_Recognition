@@ -18,6 +18,8 @@ Installation
 Code Usage
 ----------
 python buss_text.py *path of test image* *path to store output*
-example: python buss_text.py D:\Project\001.jpg D:\Project\result_001.jpg
+
+example: 
+python buss_text.py D:\Project\001.jpg D:\Project\result_001.jpg
 
 
