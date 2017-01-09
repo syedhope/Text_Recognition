@@ -7,6 +7,7 @@ This python application deals with the problems of word spotting recognition in 
 Tools used
 ----------
 [OpenCV 3.1](https://opencv-python-tutroals.readthedocs.io/en/latest/)
+
 [pytesseract](https://pypi.python.org/pypi/pytesseract/0.1)
 
 Installation
@@ -20,6 +21,7 @@ Code Usage
 python buss_text.py *path of test image* *path to store output*
 
 example: 
+
 python buss_text.py D:\Project\001.jpg D:\Project\result_001.jpg
 
 
