@@ -1,6 +1,4 @@
-Text Recognition in Business Cards
-----------------------------------
-----------------------------------
+#Text Recognition in Business Cards
 
 This python application deals with the problems of word spotting recognition in business cards. The goal is to find three distinct strings - Name, Phone number and E-mail address. 
 
