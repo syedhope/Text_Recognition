@@ -18,7 +18,7 @@ Installation
 
 Code Usage
 ----------
-python buss_text.py *path of test image* *path to store output*
+python buss_text.py *path_to_test_image* *path_to_output*
 
 example: 
 
