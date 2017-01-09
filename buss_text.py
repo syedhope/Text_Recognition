@@ -18,6 +18,7 @@ def get_contours(image_final,intensity = 1): # finding curves joining continuous
     
 def extract_text(contours):  # extracting the text from the sections of image obtained from get_contours
     x1,y1 = 10,30  # position of the text to be displayed as result
+    out = []
     for i in range(len(contours)):
             cnt = contours[i]
             n,p,e = [],[],[] # stores the text and location of name, position and email address
@@ -32,6 +33,8 @@ def extract_text(contours):  # extracting the text from the sections of image ob
                 imc = enhancer.enhance(2)
                 imc = imc.convert('1')
                 text = pytesseract.image_to_string(imc)
+                #print text
+                #print "----"
                 out = draw_bbox(text,[x,y,w,h],x1,y1) # drawing bbox for the required section
                 y1 = y1+30 # position of next text 
             except: #(IOError,IndexError):
@@ -42,6 +45,7 @@ def draw_bbox(text,rect,x1,y1): # to draw bounding box across the required secti
     [x,y,w,h] = rect
     font = cv2.FONT_HERSHEY_SIMPLEX
     namePattern = re.compile("^[a-zA-Z ]*$") # regular expression for names
+    newlinepattern = re.compile('\s*[,\n]\s*')
     phonePattern = re.compile(r''' # regular expression for phone numbers
                     # don't match beginning of string, number can start anywhere
         (\d{3})     # area code is 3 digits (e.g. '800')
@@ -54,23 +58,16 @@ def draw_bbox(text,rect,x1,y1): # to draw bounding box across the required secti
         $           # end of string
         ''', re.VERBOSE)
     emailPattern = re.compile("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-+ ]+.[a-zA-Z]{2,6}$") # regular expression for email ids
-    n,p,e = [],[],[]
-    if len(text)>8 and text != '':
+    if len(text)>8 and text != '' and not(newlinepattern.search(text)):
         if namePattern.search(text):
-            n.append(text)
-            n.append([x,y,w,h])
             out = cv2.rectangle(im,(x-9,y-9),(x+w,y+h),(0,0,255),2)
             out = cv2.putText(out,text,(x1,y1), font, 1,(0,0,255),2)
             
         if phonePattern.search(text):
-            p.append(text)
-            p.append([x,y,w,h])
             out = cv2.rectangle(im,(x-9,y-9),(x+w,y+h),(0,0,255),2)
             out = cv2.putText(out,text,(x1,y1), font, 1,(0,0,255),2)
 
         if emailPattern.search(text):
-            e.append(text)
-            e.append([x,y,w,h])
             out = cv2.rectangle(im,(x-9,y-9),(x+w,y+h),(0,0,255),2)
             out = cv2.putText(out,text,(x1,y1), font, 1,(0,0,255),2)
     return out
@@ -86,4 +83,4 @@ if __name__ == '__main__':
     c2 = get_contours(image_final,0)
     contours = c1+c2
     out = extract_text(contours)
-    cv2.imwrite(myout,out)
+    cv2.imshow(myout,out)
